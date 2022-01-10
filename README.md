@@ -2,7 +2,7 @@
 <div align="center" style="text-align: center;">
 
   <!-- Project Title -->
-  <a href="https://framagit.org/rdeville.private/my_dotfiles/myrepos">
+  <a href="https://framagit.org/rdeville.public/my_dotfiles/myrepos">
     <img src="docs/assets/img/meta/myrepos_logo.png" width="100px">
     <h1>Myrepos</h1>
   </a>
@@ -30,11 +30,11 @@ platforms.
 
 --------------------------------------------------------------------------------
 
-[repo_url]: https://framagit.org/rdeville.private/my_dotfiles/myrepos
+[repo_url]: https://framagit.org/rdeville.public/my_dotfiles/myrepos
 [license_badge]: https://img.shields.io/badge/License-MIT%2FBeer%20Ware-blue?style=flat-square&logo=open-source-initiative
 [license]: LICENSE
-[build_status_badge]: https://framagit.org/rdeville.private/my_dotfiles/myrepos/badges/master/pipeline.svg?style=flat-square&logo=appveyor
-[build_status]: https://framagit.org/rdeville.private/my_dotfiles/myrepos/commits/master
+[build_status_badge]: https://framagit.org/rdeville.public/my_dotfiles/myrepos/badges/master/pipeline.svg?style=flat-square&logo=appveyor
+[build_status]: https://framagit.org/rdeville.public/my_dotfiles/myrepos/commits/master
 
 ## Table of Content
 
@@ -95,4 +95,4 @@ You can now browse the full documentation by visiting
 
 <!-- END MKDOCS TEMPLATE -->
 
-[online_doc]: https://docs.romaindeville.fr/rdeville.private/my_dotfiles/myrepos/index.html
+[online_doc]: https://docs.romaindeville.fr/my_dotfiles/myrepos/index.html

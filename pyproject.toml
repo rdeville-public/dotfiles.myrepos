@@ -17,7 +17,7 @@ legacy_tox_ini="""
 [tox]
 isolated_build=true
 skipsdist=true
-envlist=format_{python,shell},build_doc
+envlist=format_shell,build_doc
 
 
 [testenv:format_shell]

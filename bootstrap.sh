@@ -14,15 +14,15 @@ do
   dest="${HOME}/${i_node}"
   if [[ -e "${dest}" ]] && ! [[ -L "${HOME}/.mrconfig" ]]
   then
-    mr_log "INFO" "Backup **${dest}**."
+    mr_log "INFO" "Bootstrap: Backup **${dest}**."
     mv -v "${dest}" "${dest}.bak"
-    mr_log "INFO" "Create symlinks to **${dest}**."
+    mr_log "INFO" "Bootstrap: Create symlinks to **${dest}**."
     ln -s "${src}" "${dest}"
   elif ! [[ -L "${HOME}/.mrconfig" ]]
   then
-    mr_log "INFO" "Create symlink to **${dest}**."
+    mr_log "INFO" "Bootstrap: Create symlink to **${dest}**."
     ln -s "${src}" "${dest}"
   else
-    mr_log "INFO" "Symlink to **${dest}** already exists."
+    mr_log "INFO" "Bootstrap: Symlink to **${dest}** already exists."
   fi
 done

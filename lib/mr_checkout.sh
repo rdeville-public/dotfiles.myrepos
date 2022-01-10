@@ -8,7 +8,6 @@ _checkout_vcsh(){
   vcsh "${vcsh_repo_name}" pull --quiet --all;
   mr_log "INFO" "Init git flow."
   vcsh "${vcsh_repo_name}" flow init -d &> /dev/null
-  direnv_init
 }
 
 _checkout_git(){
@@ -22,6 +21,7 @@ _checkout_git(){
   mr_log "INFO" "Init git flow."
   git flow init -d &> /dev/null
   direnv_init
+  bootstrap_dotfiles
 }
 
 mr_checkout(){

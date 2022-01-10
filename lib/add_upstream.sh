@@ -22,9 +22,9 @@ _add_git_upstream(){
 add_upstream(){
   if [[ "${MR_REPO}" =~ \.git$ ]]
   then
-    _push_vcsh "$@"
+    _add_vcsh_upstream "$@"
   else
-    _push_git "$@"
+    _add_git_upstream "$@"
   fi
 }
 

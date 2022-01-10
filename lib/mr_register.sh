@@ -24,7 +24,7 @@ _define_register_path(){
   if [[ -n "${VCSH_REPO_NAME}" ]]
   then
     repo_type="vcsh"
-  elif [[ "${PWD}" =~ ^\.config ]]
+  elif [[ "${PWD}" =~ ${HOME}/.config ]]
   then
     repo_type="dotfiles"
   else
@@ -53,11 +53,6 @@ _compute_register_content(){
 checkout =
   mr_checkout ${remote_origin_url}
 "
-
-  if [[ "${remote_origin_url}" =~ rdeville.private ]]
-  then
-    git_tpl+="  add_upstream \"${remote_origin_url/rdeville.private/rdeville.public}\""
-  fi
 }
 
 

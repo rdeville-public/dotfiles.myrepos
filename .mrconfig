@@ -2,10 +2,13 @@
 lib =
   . ${HOME}/.config/mr/load_library.sh
 
-register  = mr_register
-update    = mr_update
-push      = mr_push
-status    = mr_status
+post_checkout = bootstrap_dotfiles
+register      = mr_register
+update        = mr_update $@
+push          = mr_push $@
+status        = mr_status $@
+remote        = mr_remote $@
+branch        = mr_branch $@
 
 # Teach mr how to `mr gc` in git repos.
 git_gc = git gc "$@"

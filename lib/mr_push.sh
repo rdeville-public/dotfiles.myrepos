@@ -3,10 +3,10 @@
 _push_vcsh(){
   vcsh_repo_name=$(basename "${MR_REPO#*:}" .git)
   mr_log "INFO" "Pull vcsh repo **${vcsh_repo_name}**."
-  vcsh run ${vcsh_repo_name} git push --quiet --all "$@"
+  vcsh run ${vcsh_repo_name} git push --all "$@"
   if [[ $(vcsh run ${vcsh_repo_name} git remote -v) =~ upstream ]]
   then
-    vcsh run ${vcsh_repo_name} git push --quiet upstream --all "$@"
+    vcsh run ${vcsh_repo_name} git push upstream --all "$@"
   fi
 }
 
@@ -16,7 +16,7 @@ _push_git(){
   git push --quiet --all "$@"
   if [[ $(git remote -v) =~ upstream ]]
   then
-    git push --quiet upstream --all "$@"
+    git push upstream --all "$@"
   fi
 }
 

@@ -1,143 +1,17 @@
 [DEFAULT]
+lib =
+  . ${HOME}/.config/mr/load_library.sh
+
+register  = mr_register
+update    = mr_update
+push      = mr_push
+status    = mr_status
+
 # Teach mr how to `mr gc` in git repos.
 git_gc = git gc "$@"
 
-lib =
-  for i_file in "${HOME}/.config/mr/lib/"*.sh
-  do
-    source "${i_file}"
-  done
-
 include =
-  cat "${HOME}/.config/mr/hosts/${HOSTNAME}/mrconfig"
-
-# Automatically init git flow after cloning the repo
-pre_checkout =
-  mr_log "INFO" "Clone **${MR_REPO}**."
-
-post_checkout =
-  cd "${MR_REPO}"
-  mr_log "INFO" "Pull all remote branch."
-  git pull --quiet --all;
-###  echo -e "\e[0;32m[INFO] Init git flow.\e[0m"
-###  git flow init -d &> /dev/null
-###  if [[ -d "${HOME}/.config/direnv" ]]
-###  then
-###    echo -e "\e[0;32m[INFO] Init direnv.\e[0m"
-###    envrc="${MR_REPO}/.envrc"
-###    envrc_tpl="${HOME}/.config/direnv/templates/envrc.template"
-###    if [[ -e "${envrc_tpl}" ]] && ! [[ -e "${envrc}" ]]
-###    then
-###      echo -e "\e[0;32m[INFO] Create symlink to ${envrc_tpl}.\e[0m"
-###      ln -s "${envrc_tpl}" "${envrc}"
-###    fi
-###    envrc_ini="${HOME}/.config/envrc${MR_REPO//${HOME}}/envrc.ini"
-###    envrc_ini_tpl="${HOME}/.config/direnv/templates/envrc.ini.template"
-###    if ! [[ -e "${envrc_ini}" ]]
-###    then
-###      echo -e "\e[0;32m[INFO] Install base envrc.ini file in ${envrc_ini}.\e[0m"
-###      mkdir -p "$(dirname ${envrc_ini})"
-###      cp "${envrc_ini_tpl}" "${envrc_ini}"
-###      echo -e "\e[0;33m[WARNING] Do not forget to update .envrc.ini.\e[0m"
-###    fi
-###    if ! [[ -e "${MR_REPO}/.envrc.ini" ]] && [[ -e "${envrc_ini}" ]]
-###    then
-###      echo -e "\e[0;32m[INFO] Create symlink to ${envrc_ini}.\e[0m"
-###      ln -s "${envrc_ini}" "${MR_REPO}/.envrc.ini"
-###    fi
-###  fi
-###
-###direnv =
-###  cd "${MR_REPO}"
-###  if [[ -d "${HOME}/.config/direnv" ]]
-###  then
-###    echo -e "\e[0;32m[INFO] Init direnv.\e[0m"
-###    envrc="${MR_REPO}/.envrc"
-###    envrc_tpl="${HOME}/.config/direnv/templates/envrc.template"
-###    if [[ -e "${envrc_tpl}" ]] && ! [[ -e "${envrc}" ]]
-###    then
-###      echo -e "\e[0;32m[INFO] Create symlink to ${envrc_tpl}.\e[0m"
-###      ln -s "${envrc_tpl}" "${envrc}"
-###    fi
-###    envrc_ini="${HOME}/.config/envrc${MR_REPO//${HOME}}/.envrc.ini"
-###    envrc_ini_tpl="${HOME}/.config/direnv/templates/envrc.ini.template"
-###    if ! [[ -e "${envrc_ini}" ]]
-###    then
-###      echo -e "\e[0;32m[INFO] Install base envrc.ini file in ${envrc_ini}.\e[0m"
-###      mkdir -p "$(dirname ${envrc_ini})"
-###      cp "${envrc_ini_tpl}" "${envrc_ini}"
-###      echo -e "\e[0;33m[WARNING] Do not forget to update .envrc.ini.\e[0m"
-###    fi
-###    if ! [[ -e "${MR_REPO}/.envrc.ini" ]] && [[ -e "${envrc_ini}" ]]
-###    then
-###      echo -e "\e[0;32m[INFO] Create symlink to ${envrc_ini}.\e[0m"
-###      ln -s "${envrc_ini}" "${MR_REPO}/.envrc.ini"
-###    fi
-###  fi
-###
-###
-###pull =
-###  echo -e "\e[0;32m[INFO] Pull ${MR_REPO}.\e[0m"
-###  git pull --quiet
-###
-###update =
-###  echo -e "\e[0;32m[INFO] Pull ${MR_REPO}.\e[0m"
-###  git pull --quiet
-###
-###push =
-###  echo -e "\e[0;32m[INFO] Push all branch of ${MR_REPO}.\e[0m"
-###  git push --quiet --all;
-###  echo -e "\e[0;32m[INFO] Push tags of ${MR_REPO}.\e[0m"
-###  git push --quiet --tags;
-###
-###issue =
-###  cd ${MR_REPO}
-###  glab issue list --all
-###
-####include =
-####  if [ -f "${HOME}/.config/mr/hosts/$(hostname).cfg" ]
-####  then
-####    cat "${HOME}/.config/mr/hosts/$(hostname).cfg"
-####  fi
-###
-[git/perso/private/my_programs/mkdocs_template_rdeville]
-checkout = git clone --quiet 'git@framagit.org:rdeville.private/my_programs/mkdocs_template_rdeville.git' 'mkdocs_template_rdeville'
-###
-###[git/perso/private/my_programs/mkdocs_template]
-###checkout = git clone --quiet 'git@framagit.org:rdeville.public/my_programs/mkdocs_template.git' 'mkdocs_template'
-###
-###[git/perso/private/my_programs/direnv_template]
-###checkout = git clone --quiet 'git@framagit.org:rdeville.private/my_programs/direnv_template.git' 'direnv_template'
-###
-###[git/perso/private/my_programs/dynamic_prompt]
-###checkout = git clone --quiet 'git@framagit.org:rdeville.private/my_programs/dynamic_prompt.git' 'dynamic_prompt'
-###
-###[git/perso/private/my_documents/expenum_2020_02]
-###checkout = git clone --quiet 'git@framagit.org:rdeville.private/my_documents/expenum_02_2020.git' 'expenum_2020_02'
-###
-###[git/perso/private/docs_romaindeville_fr]
-###checkout = git clone --quiet 'git@framagit.org:rdeville.private/docs_romaindeville_fr.git' 'docs_romaindeville_fr'
-###
-###[git/perso/private/romaindeville_fr]
-###checkout = git clone --quiet 'git@framagit.org:rdeville.private/romaindeville_fr.git' 'romaindeville_fr'
-###
-###[git/perso/public/my_programs/mkdocs_template_rdeville]
-###checkout = git clone --quiet 'git@framagit.org:rdeville.public/my_programs/mkdocs_template_rdeville.git' 'mkdocs_template_rdeville'
-###
-###[git/perso/public/my_programs/mkdocs_template]
-###checkout = git clone --quiet 'git@framagit.org:rdeville.public/my_programs/mkdocs_template.git' 'mkdocs_template'
-###
-###[git/perso/public/my_programs/direnv_template]
-###checkout = git clone --quiet 'git@framagit.org:rdeville.public/my_programs/direnv_template.git' 'direnv_template'
-###
-###[git/perso/public/my_programs/dynamic_prompt]
-###checkout = git clone --quiet 'git@framagit.org:rdeville.public/my_programs/dynamic_prompt.git' 'dynamic_prompt'
-###
-###[git/perso/public/my_documents/expenum_2020_02]
-###checkout = git clone --quiet 'git@framagit.org:rdeville.public/my_documents/expenum_02_2020.git' 'expenum_2020_02'
-###
-###[git/perso/public/docs_romaindeville_fr]
-###checkout = git clone --quiet 'git@framagit.org:rdeville.public/docs_romaindeville_fr.git' 'docs_romaindeville_fr'
-###
-###[git/perso/public/romaindeville_fr]
-###checkout = git clone --quiet 'git@framagit.org:rdeville.public/romaindeville_fr.git' 'romaindeville_fr'
+  # Load method to include repo per hostname
+  . ${HOME}/.config/mr/load_library.sh
+  # Load repos per hostname
+  include_host_repo

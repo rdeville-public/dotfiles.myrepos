@@ -6,7 +6,7 @@ NODES=(
   ".mrconfig"
 )
 
-source "${SCRIPTPATH}/lib/mr_log.sh"
+source "${SCRIPTPATH}/lib/_mr_log.sh"
 
 for i_node in "${NODES[@]}"
 do

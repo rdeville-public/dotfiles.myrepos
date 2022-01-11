@@ -43,7 +43,7 @@ _define_register_path(){
   if [[ "${option}" != "append" ]]
   then
     dest="${dest_prefix}/repos/${repo_type}${MR_REPO}.${file_ext}"
-    dest_host="${dest_prefix}/hosts/${HOSTNAME}${repo_type}/${MR_REPO}.${file_ext}"
+    dest_host="${dest_prefix}/hosts/${HOSTNAME}${repo_type}${MR_REPO}.${file_ext}"
     dest_tmp="/tmp/${repo_type}${MR_REPO}.${file_ext}"
   else
     dest="${dest_prefix}/repos/${append_file}.git"
@@ -73,8 +73,8 @@ _register_repo(){
     if [[ -f "${dest}" ]]
     then
       mkdir -p "$(dirname ${dest_tmp})"
-      echo "${git_tpl}" > "${dest_tmp}"
-      if ! diff -q "${dest}" "${dest_tmp}" &> /dev/null
+      echo -e "${git_tpl}\n" > "${dest_tmp}"
+      if ! diff "${dest}" "${dest_tmp}" &> /dev/null
       then
         mr_log "WARNING" "Old and new registering for **${MR_REPO}** differs."
         mr_log "WARNING" "Backup old registering for **${MR_REPO}**."

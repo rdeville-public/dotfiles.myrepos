@@ -5,8 +5,6 @@ SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 declare -A NODES
 
 NODES["${SCRIPTPATH}/.mrconfig"]="${HOME}/.mrconfig"
-NODES["${HOME}/.local/share/mr/repos"]="repos"
-NODES["${HOME}/.local/share/mr/hosts"]="hosts"
 
 source "${SCRIPTPATH}/lib/_mr_log.sh"
 

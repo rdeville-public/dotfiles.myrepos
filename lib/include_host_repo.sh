@@ -3,7 +3,7 @@
 include_host_repo(){
   if [[ -z "$1" ]]
   then
-    include_host_repo "${HOME}/.config/mr/hosts/${HOSTNAME}"
+    include_host_repo "${XDG_DATA_DIR:-${HOME}/.local/share}/mr/hosts/${HOSTNAME}"
   else
     for i_file in "$1"/*
     do

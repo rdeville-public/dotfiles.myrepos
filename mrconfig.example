@@ -19,15 +19,37 @@ post_checkout =
   bootstrap_dotfiles
 
 # Call method in lib/mr_register.sh
-register      = mr_register
+# WARNING, option --tree, --flat and --append are mutually exclusive
+# Use default option but allow to use --tree, --flat, --append [FILE] and --dir
+# REMARK, to do so, when registering a repo, command should be `mr register ./ --options`
+register      = mr_register "$@"
+# With default option or --tree (i.e. register in XDG_DATA_DIR and keep directory tree)
+#register      = mr_register
+#register      = mr_register --tree
+#register      = mr_register -t
+# With --flat option (i.e. register in XDG_DATA_DIR but without directory tree)
+#register      = mr_register --flat
+#register      = mr_register -f
+# With --append option (i.e. append repo in XDG_DATA_DIR/mr/hosts/$(hostname)/repos.git)
+#register      = mr_register --append
+#register      = mr_register -a
+# With --dir option (i.e. specify the location where `hosts` and `repos` dir are stored)
+# Below example will make storing repository in your ~/.config/mr/{hosts,repos} folder
+#register      = mr_register --dir "${HOME}/.config/mr/"
+#register      = mr_register -d "${HOME}/.config/mr/"
+
 # Call method in lib/mr_update.sh
 update        = mr_update "$@"
+
 # Call method in lib/mr_push.sh
 push          = mr_push "$@"
+
 # Call method in lib/mr_status.sh
 status        = mr_status "$@"
+
 # Call method in lib/mr_remote.sh
 remote        = mr_remote "$@"
+
 # Call method in lib/mr_branch.sh
 branch        = mr_branch "$@"
 
@@ -39,3 +61,5 @@ include =
   . "${HOME}/.config/mr/load_library.sh"
   # Load repos per hostname
   include_host_repo
+
+# vim: ft=conf

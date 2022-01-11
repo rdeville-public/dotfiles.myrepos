@@ -63,10 +63,8 @@ add_upstream(){
   fi
   if [[ "${MR_REPO}" =~ \.git$ ]]
   then
-    echo "vcsh_upstream"
     _add_vcsh_upstream
   else
-    echo "git_upstream"
     _add_git_upstream
   fi
 }

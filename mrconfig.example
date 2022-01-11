@@ -35,8 +35,8 @@ register      = mr_register "$@"
 #register      = mr_register -a
 # With --dir option (i.e. specify the location where `hosts` and `repos` dir are stored)
 # Below example will make storing repository in your ~/.config/mr/{hosts,repos} folder
-#register      = mr_register --dir "${HOME}/.config/mr/"
-#register      = mr_register -d "${HOME}/.config/mr/"
+#register      = mr_register --dir "${HOME}/.config/mr/" "$@"
+#register      = mr_register -d "${HOME}/.config/mr/" "$@"
 
 # Call method in lib/mr_update.sh
 update        = mr_update "$@"

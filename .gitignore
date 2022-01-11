@@ -1,7 +1,7 @@
 # Project Specific Gitignore
 
-repos/*
-hosts/*
+repos
+hosts
 .vimrc.local
 .tmuxinator.yml
 .old/

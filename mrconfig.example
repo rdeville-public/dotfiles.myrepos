@@ -1,0 +1,41 @@
+[DEFAULT]
+lib =
+  # Load method library
+  . "${HOME}/.config/mr/load_library.sh"
+
+post_checkout =
+  # Go to newly cloned repo to be able to use below script
+  cd "${MR_REPO}"
+  # Call method in lib/add_upstream.sh
+  # Either use -r to define a remote (better to use it per repo)
+  #add_upstream -r "git@git.tld:user/repo_upstream.git"
+  # Or specify a pattern to replace from origin remote
+  #add_upstream -e "pattern" "replace"
+  # Call method in lib/git_flow_init.sh
+  git_flow_init
+  # Call method in lib/direnv_init.sh
+  direnv_init
+  # Call method in lib/bootstrap_dotfiles.sh
+  bootstrap_dotfiles
+
+# Call method in lib/mr_register.sh
+register      = mr_register
+# Call method in lib/mr_update.sh
+update        = mr_update "$@"
+# Call method in lib/mr_push.sh
+push          = mr_push "$@"
+# Call method in lib/mr_status.sh
+status        = mr_status "$@"
+# Call method in lib/mr_remote.sh
+remote        = mr_remote "$@"
+# Call method in lib/mr_branch.sh
+branch        = mr_branch "$@"
+
+# Teach mr how to `mr gc` in git repos.
+git_gc = git gc "$@"
+
+include =
+  # Load method library to include repo per hostname
+  . "${HOME}/.config/mr/load_library.sh"
+  # Load repos per hostname
+  include_host_repo

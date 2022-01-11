@@ -24,15 +24,14 @@ _define_register_path(){
   if [[ -n "${VCSH_REPO_NAME}" ]]
   then
     repo_type="vcsh"
-  elif [[ "${PWD}" =~ ${HOME}/.config ]]
+  elif [[ "${PWD}" =~ ${HOME}/.config ]] || [[ "${PWD}" =~ ${HOME}/.local ]]
   then
     repo_type="dotfiles"
   else
-    repo_type="${PWD//*git\//}"
-    repo_type="$(dirname ${repo_type})"
+    repo_type="$(dirname ${PWD/${HOME}\/})"
   fi
-  dest="${HOME}/.config/mr/repos/${repo_type}/${MR_REPO}.git"
-  dest_host="${HOME}/.config/mr/hosts/${HOSTNAME}/${repo_type}/${MR_REPO}.git"
+  dest="${XDG_DATA_DIR:-${HOME}/.local/share}/mr/repos/${repo_type}/${MR_REPO}.git"
+  dest_host="${XDG_DATA_DIR:-${HOME}/.local/share}/mr/hosts/${HOSTNAME}/${repo_type}/${MR_REPO}.git"
   dest_tmp="/tmp/${repo_type}/${MR_REPO}.git"
 }
 
@@ -51,7 +50,7 @@ _compute_register_content(){
   git_tpl="\
 [${repo_path}]
 checkout =
-  mr_checkout ${remote_origin_url}
+  mr_checkout \"${remote_origin_url}\" \"$@\"
 "
 }
 

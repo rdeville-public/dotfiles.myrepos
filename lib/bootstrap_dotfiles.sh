@@ -2,7 +2,8 @@
 
 bootstrap_dotfiles(){
   bootstrap_script="${MR_REPO}/bootstrap.sh"
-  if [[ "${MR_REPO}" =~ ${HOME}/.(config|local)/ ]] \
+  if ([[ "${MR_REPO}" =~ ${HOME}/.config ]] \
+      || [[ "${MR_REPO}" =~ ${HOME}/.local ]]) \
     && [[ -e "${bootstrap_script}" ]] \
     && [[ -x ${bootstrap_script} ]]
   then

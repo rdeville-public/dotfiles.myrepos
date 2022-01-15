@@ -4,6 +4,7 @@ repos
 hosts
 .vimrc.local
 .tmuxinator.yml
+.tmuxp.y*ml
 .old/
 .tmp/
 .undodir

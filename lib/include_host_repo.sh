@@ -3,7 +3,27 @@
 include_host_repo(){
   if [[ -z "$1" ]]
   then
-    include_host_repo "${XDG_DATA_DIR:-${HOME}/.local/share}/mr/hosts/${HOSTNAME}"
+    include_dir="${XDG_DATA_DIR:-${HOME}/.local/share}/mr"
+    if [[ "${USE_HOSTNAME}" == "false" ]] && [[ "${USE_USERNAME}" == "false" ]]
+    then
+      include_dir+="/repos"
+    else
+      if [[ "${USE_HOSTNAME}" == "true" ]]
+      then
+        include_dir+="/hosts/${HOSTNAME}"
+      fi
+      if [[ "${USE_USERNAME}" == "true" ]]
+      then
+        include_dir+="/${USER}"
+      fi
+    fi
+    for i_file in "${include_dir}"/*
+    do
+      if [[ $(basename "${i_file}") != "${USER}" ]]
+      then
+        include_host_repo "${include_dir}"
+      fi
+    done
   else
     for i_file in "$1"/*
     do

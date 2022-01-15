@@ -1,5 +1,11 @@
 [DEFAULT]
 lib =
+  # Set variable to tell mr to look/register in
+  #  - ${XDG_DATA_DIR}/mr/hosts/${HOSTNAME}/${USER} if both are set to true
+  #  - ${XDG_DATA_DIR}/mr/hosts/${HOSTNAME} if `USE_HOSTNAME` is set to true
+  #  - ${XDG_DATA_DIR}/mr/hosts/${USER} if `USE_USERNAME` is set to true
+  USE_HOSTNAME="true"
+  USE_USERNAME="true"
   # Load method library
   . "${HOME}/.config/mr/load_library.sh"
 
@@ -57,6 +63,12 @@ branch        = mr_branch "$@"
 git_gc = git gc "$@"
 
 include =
+  # Set variable to tell mr to look/register in
+  #  - ${XDG_DATA_DIR}/mr/hosts/${HOSTNAME}/${USER} if both are set to true
+  #  - ${XDG_DATA_DIR}/mr/hosts/${HOSTNAME} if `USE_HOSTNAME` is set to true
+  #  - ${XDG_DATA_DIR}/mr/hosts/${USER} if `USE_USERNAME` is set to true
+  USE_HOSTNAME="true"
+  USE_USERNAME="true"
   # Load method library to include repo per hostname
   . "${HOME}/.config/mr/load_library.sh"
   # Load repos per hostname

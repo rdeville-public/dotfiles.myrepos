@@ -40,14 +40,31 @@ _define_register_path(){
       repo_type="$(dirname ${PWD/${HOME}\/})/"
     fi
   fi
+
+  dest="${dest_prefix}/repos/"
+  dest_host="${dest_prefix}/"
+  if [[ "${USE_USERNAME}" == "false" ]] && [[ "${USE_HOSTNAME}" == "false" ]]
+  then
+    dest_host+="repos"
+  else
+    if [[ "${USE_HOSTNAME}" == "true" ]]
+    then
+      dest_host+="hosts/${HOSTNAME}"
+    fi
+    if [[ "${USE_USERNAME}" == "true" ]]
+    then
+      dest_host+="/${USER}"
+    fi
+  fi
+
   if [[ "${option}" != "append" ]]
   then
-    dest="${dest_prefix}/repos/${repo_type}${MR_REPO}.${file_ext}"
-    dest_host="${dest_prefix}/hosts/${HOSTNAME}${repo_type}${MR_REPO}.${file_ext}"
+    dest+="${repo_type}${MR_REPO}.${file_ext}"
+    dest_host+="/${repo_type}${MR_REPO}.${file_ext}"
     dest_tmp="/tmp/${repo_type}${MR_REPO}.${file_ext}"
   else
     dest="${dest_prefix}/repos/${append_file}.git"
-    dest_host="${dest_prefix}/hosts/${HOSTNAME}/${append_file}.git"
+    dest_host+="/${append_file}.git"
     dest_tmp="/tmp/${repo_type}/${append_file}.git"
   fi
 }
@@ -174,7 +191,10 @@ mr_register(){
   _define_register_path
   _compute_register_content
   _register_repo
-  _symlink_repo_in_host
+  if [[ "${dest}" != "${dest_host}" ]]
+  then
+    _symlink_repo_in_host
+  fi
 }
 
 # -----------------------------------------------------------------------------

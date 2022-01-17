@@ -11,7 +11,7 @@ _checkout_vcsh(){
 _checkout_git(){
   repo_path=${MR_REPO/${HOME}/\~}
   mr_log "INFO" "Clone **${repo_path}**."
-  git clone "$@" "${MR_REPO}"
+  git clone --recurse-submodules "$@" "${MR_REPO}"
   cd ${MR_REPO}
   mr_log "INFO" "Pull all remote branches"
   if [[ $@ =~ --quiet|-q ]]

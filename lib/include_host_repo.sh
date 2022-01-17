@@ -1,29 +1,35 @@
 #!/usr/bin/env bash
 
 include_host_repo(){
-  if [[ -z "$1" ]] && ! [[ -e "/.dockerenv" ]]
+  if [[ -z "$1" ]]
   then
     include_dir="${XDG_DATA_DIR:-${HOME}/.local/share}/mr"
-    if [[ "${USE_HOSTNAME}" == "false" ]] && [[ "${USE_USERNAME}" == "false" ]]
+    if ! [[ -e "/.dockerenv" ]]
     then
-      include_dir+="/repos"
+      if [[ "${USE_HOSTNAME}" == "false" ]] && [[ "${USE_USERNAME}" == "false" ]]
+      then
+        include_dir+="/repos"
+      else
+        if [[ "${USE_HOSTNAME}" == "true" ]]
+        then
+          include_dir+="/hosts/${HOSTNAME}"
+        fi
+        if [[ "${USE_USERNAME}" == "true" ]]
+        then
+          include_dir+="/${USER}"
+        fi
+      fi
+      for i_file in "${include_dir}"/*
+      do
+        if [[ $(basename "${i_file}") != "${USER}" ]]
+        then
+          include_host_repo "${include_dir}"
+        fi
+      done
     else
-      if [[ "${USE_HOSTNAME}" == "true" ]]
-      then
-        include_dir+="/hosts/${HOSTNAME}"
-      fi
-      if [[ "${USE_USERNAME}" == "true" ]]
-      then
-        include_dir+="/${USER}"
-      fi
+      include_dir+="/hosts/docker"
+      include_host_repo "${include_dir}"
     fi
-    for i_file in "${include_dir}"/*
-    do
-      if [[ $(basename "${i_file}") != "${USER}" ]]
-      then
-        include_host_repo "${include_dir}"
-      fi
-    done
   else
     for i_file in "$1"/*
     do
@@ -35,8 +41,5 @@ include_host_repo(){
         cat ${i_file}
       fi
     done
-  else
-    include_dir="${XDG_DATA_DIR:-${HOME}/.local/share}/mr/docker"
-    include_host_repo "${include_dir}"
   fi
 }

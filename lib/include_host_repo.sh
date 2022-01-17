@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 include_host_repo(){
-  if [[ -z "$1" ]]
+  if [[ -z "$1" ]] && ! [[ -e "/.dockerenv" ]]
   then
     include_dir="${XDG_DATA_DIR:-${HOME}/.local/share}/mr"
     if [[ "${USE_HOSTNAME}" == "false" ]] && [[ "${USE_USERNAME}" == "false" ]]
@@ -35,5 +35,8 @@ include_host_repo(){
         cat ${i_file}
       fi
     done
+  else
+    include_dir="${XDG_DATA_DIR:-${HOME}/.local/share}/mr/docker"
+    include_host_repo "${include_dir}"
   fi
 }

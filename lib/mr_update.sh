@@ -19,5 +19,4 @@ mr_update(){
   else
     _update_git "$@"
   fi
-  bootstrap_dotfiles
 }

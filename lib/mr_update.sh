@@ -7,7 +7,7 @@ _update_vcsh(){
 }
 
 _update_git(){
-  repo_path="${MR_REPO/${HOME}/\~}"
+  repo_path="${MR_REPO/${HOME}/~}"
   mr_log "INFO" "Pull **${repo_path}**."
   git pull "$@"
 }

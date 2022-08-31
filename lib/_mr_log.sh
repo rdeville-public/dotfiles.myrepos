@@ -52,13 +52,13 @@ mr_log()
 
   # Store color prefixes in variable to ease their use.
   # Base on only 8 colors to ensure portability of color when in tty
-  local e_normal="\e[0m"     # Normal (usually white fg & transparent bg)
-  local e_bold="\e[1m"       # Bold
-  local e_underline="\e[4m"  # Underline
-  local e_debug="\e[0;34m"   # Fifth term color (usually magenta fg)
-  local e_info="\e[0;32m"    # Second term color (usually green fg)
-  local e_warning="\e[0;33m" # Third term color (usually yellow fg)
-  local e_error="\e[0;31m"   # First term color (usually red fg)
+  local e_normal="\033[0m"     # Normal (usually white fg & transparent bg)
+  local e_bold="\033[1m"       # Bold
+  local e_underline="\033[4m"  # Underline
+  local e_debug="\033[0;34m"   # Fifth term color (usually magenta fg)
+  local e_info="\033[0;32m"    # Second term color (usually green fg)
+  local e_warning="\033[0;33m" # Third term color (usually yellow fg)
+  local e_error="\033[0;31m"   # First term color (usually red fg)
 
   # Store preformated colored prefix for log message
   local error="${e_bold}${e_error}[ERROR]${e_normal}${e_error}"
@@ -100,7 +100,7 @@ mr_log()
   msg="${prefix} ${msg_content}${e_normal}"
 
   # Print message
-  echo -e "${msg}" 1>&2
+  echo "${msg}" 1>&2
 }
 
 

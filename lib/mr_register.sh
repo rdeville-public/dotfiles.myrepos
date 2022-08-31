@@ -18,13 +18,13 @@ _check_git_repo(){
     exit 1
   else
     repo_path="$(git rev-parse --show-toplevel)"
-    export MR_REPO="$(basename ${repo_path})"
+    # shellcheck disable=SC2155
+    export MR_REPO="$(basename "${repo_path}")"
   fi
 }
 
 
 _define_register_path(){
-  local dest_dir_suffix=""
   local file_ext="git"
   local repo_type
   if [[ "${option}" == "tree" ]]
@@ -32,12 +32,11 @@ _define_register_path(){
     if [[ -n "${VCSH_REPO_NAME}" ]]
     then
       repo_type="vcsh/"
-      extension=".vcsh"
     elif [[ "${PWD}" =~ ${HOME}/.config ]] || [[ "${PWD}" =~ ${HOME}/.local ]]
     then
       repo_type="dotfiles/"
     else
-      repo_type="$(dirname ${PWD/${HOME}\/})/"
+      repo_type="$(dirname "${PWD/${HOME}\/}")/"
     fi
   fi
 
@@ -71,7 +70,8 @@ _define_register_path(){
 
 
 _compute_register_content(){
-  local remote_origin_url="$(git config --get remote.origin.url)"
+  local remote_origin_url
+  remote_origin_url="$(git config --get remote.origin.url)"
   if [[ -n "${VCSH_REPO_NAME}" ]]
   then
     repo_path=".local/share/vcsh/repo.d/${VCSH_REPO_NAME}.git"
@@ -89,7 +89,7 @@ _register_repo(){
   then
     if [[ -f "${dest}" ]]
     then
-      mkdir -p "$(dirname ${dest_tmp})"
+      mkdir -p "$(dirname "${dest_tmp}")"
       echo -e "${git_tpl}\n" > "${dest_tmp}"
       if ! diff "${dest}" "${dest_tmp}" &> /dev/null
       then
@@ -101,18 +101,18 @@ _register_repo(){
       fi
     fi
     mr_log "INFO" "Registering **${MR_REPO}** in **${dest/${HOME}/\~}**."
-    mkdir -p "$(dirname ${dest})"
+    mkdir -p "$(dirname "${dest}")"
     echo -e "${git_tpl}\n" > "${dest}"
   else
     if ! [[ -f "${dest}" ]]
     then
       mr_log "INFO" "Registering **${MR_REPO}** in **${dest/${HOME}/\~}**."
-      mkdir -p "$(dirname ${dest})"
+      mkdir -p "$(dirname "${dest}")"
       echo -e "${git_tpl}\n" >> "${dest}"
     elif ! grep "${repo_path/${HOME}\/}" "${dest}"
     then
       mr_log "INFO" "Adding **${MR_REPO}** in **${dest/${HOME}/\~}**."
-      mkdir -p "$(dirname ${dest})"
+      mkdir -p "$(dirname "${dest}")"
       echo -e "${git_tpl}\n" >> "${dest}"
     else
       mr_log "WARNING" "Repo **${MR_REPO/${HOME}/\~}** seems to already be registered in **${dest/${HOME}/\~}**."
@@ -123,12 +123,13 @@ _register_repo(){
 
 
 _symlink_repo_in_host(){
-  local nb_subdir=$(echo ${dest_host/${dest_prefix}\//} | tr -d -c "/" | wc -c)
+  local nb_subdir
+  nb_subdir=$(echo "${dest_host/${dest_prefix}\//}" | tr -d -c "/" | wc -c)
 
   if ! [[ -L "${dest_host}" ]]
   then
     mr_log "INFO" "Create symlinks for **${MR_REPO/${HOME}/\~}** for **${HOSTNAME}**."
-    mkdir -p "$(dirname ${dest_host})"
+    mkdir -p "$(dirname "${dest_host}")"
     dest="${dest/${dest_prefix}\//}"
     for ((i=0; i<nb_subdir; i++))
     do
@@ -151,8 +152,6 @@ _test_option(){
 mr_register(){
   local dest_prefix="${XDG_DATA_DIR:-${HOME}/.local/share}/mr"
   local append_file="repos"
-  local dest_dir=""
-  local dest_dir_host=""
   local option=""
   local repo_path=""
 

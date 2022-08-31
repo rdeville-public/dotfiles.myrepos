@@ -2,11 +2,11 @@
 
 _branch_vcsh(){
   vcsh_repo_name=$(basename "${MR_REPO#*:}" .git)
-  vcsh run ${vcsh_repo_name} git branch $@
+  vcsh run "${vcsh_repo_name}" git branch "$@"
 }
 
 _branch_git(){
-  git branch $@
+  git branch "$@"
 }
 
 mr_branch(){

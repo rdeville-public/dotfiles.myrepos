@@ -35,10 +35,10 @@ include_host_repo(){
     do
       if [[ -d "${i_file}" ]]
       then
-        include_host_repo ${i_file}
+        include_host_repo "${i_file}"
       elif [[ "${i_file}" =~ \.(git|vcsh)$ ]]
       then
-        cat ${i_file}
+        cat "${i_file}"
       fi
     done
   fi

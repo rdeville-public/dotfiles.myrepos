@@ -3,10 +3,10 @@
 _push_vcsh(){
   vcsh_repo_name=$(basename "${MR_REPO#*:}" .git)
   mr_log "INFO" "Push vcsh repo **${vcsh_repo_name}**."
-  vcsh run ${vcsh_repo_name} git push --all "$@"
-  if [[ $(vcsh run ${vcsh_repo_name} git remote -v) =~ upstream ]]
+  vcsh run "${vcsh_repo_name}" git push --all "$@"
+  if [[ $(vcsh run "${vcsh_repo_name}" git remote -v) =~ upstream ]]
   then
-    vcsh run ${vcsh_repo_name} git push upstream --all "$@"
+    vcsh run "${vcsh_repo_name}" git push upstream --all "$@"
   fi
 }
 

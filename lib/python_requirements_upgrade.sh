@@ -6,7 +6,7 @@ python_requirements_upgrade(){
     for i_req in "${MR_REPO}"/requirements*in
     do
       mr_log "Upgrading **${i_req/${MR_REPO}\//}**."
-      pip-compile -U ${i_req} 2> /dev/null
+      pip-compile -U "${i_req}" 2> /dev/null
     done
   fi
 }

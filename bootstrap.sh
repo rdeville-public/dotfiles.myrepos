@@ -8,7 +8,7 @@ NODES["${SCRIPTPATH}"]="${HOME}/.config/mr"
 
 # shellcheck disable=SC2034
 #   - SC2034: var appears unused, Verify use (or export if used externally)
-awesome_log()
+myrepos_log()
 {
   # """Print debug message in colors depending on message severity on stderr
   #
@@ -108,13 +108,13 @@ main(){
 
       if [[ -e "${dest}" ]] && ! [[ -L "${dest}" ]]
       then
-        awesome_log "ERROR" "Bootstrap: Something already exists for **${dest/${HOME}/\~}**."
+        myrepos_log "ERROR" "Bootstrap: Something already exists for **${dest/${HOME}/\~}**."
       elif ! [[ -L "${dest}" ]]
       then
-        awesome_log "INFO" "Bootstrap: Create symlink to **${dest/${HOME}/\~}**."
+        myrepos_log "INFO" "Bootstrap: Create symlink to **${dest/${HOME}/\~}**."
         ln -s "${src}" "${dest}"
       else
-        awesome_log "INFO" "Bootstrap: Symlink to **${dest/${HOME}/\~}** already exists."
+        myrepos_log "INFO" "Bootstrap: Symlink to **${dest/${HOME}/\~}** already exists."
       fi
     done
   fi

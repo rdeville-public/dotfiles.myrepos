@@ -2,7 +2,7 @@
 # """Contain method to print log message
 #
 # SYNOPSIS:
-#   source /path/to/mr_log.sh
+#   source /path/to/_log.sh
 #
 # DESCRIPTION:
 #   Echo colored log depending on user provided message severity. Message
@@ -20,7 +20,7 @@
 
 # shellcheck disable=SC2034
 #   - SC2034: var appears unused, Verify use (or export if used externally)
-mr_log()
+_log()
 {
   # """Print debug message in colors depending on message severity on stderr
   #
@@ -92,6 +92,7 @@ mr_log()
   msg_content=$(echo "$*" | \
     sed -e "s/ \*\*/ \\${e_bold}/g" \
         -e "s/\*\*\./\\${e_normal}\\${color_output}./g" \
+        -e "s/\*\*$/\\${e_normal}\\${color_output}/g" \
         -e "s/\*\*,/\\${e_normal}\\${color_output},/g" \
         -e "s/\*\* /\\${e_normal}\\${color_output} /g" \
         -e "s/ \_\_/ \\${e_underline}/g" \
@@ -100,11 +101,7 @@ mr_log()
   msg="${prefix} ${msg_content}${e_normal}"
 
   # Print message
-  echo "${msg}" 1>&2
+  echo -e "${msg}" 1>&2
 }
 
-
-# ------------------------------------------------------------------------------
-# VIM MODELINE
 # vim: ft=bash: fdm=indent
-# ------------------------------------------------------------------------------

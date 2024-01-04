@@ -94,7 +94,7 @@ myrepos_log()
 main(){
   cd "${SCRIPTPATH}" || exit 1
 
-  if git remote -v | grep -q 'rdeville.private'
+  if git remote -v | grep -q 'rdeville.public'
   then
     for i_node in "${!NODES[@]}"
     do

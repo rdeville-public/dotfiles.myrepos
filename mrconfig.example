@@ -8,6 +8,8 @@ lib =
   USE_USERNAME="true"
   # Load method library
   . "${HOME}/.config/mr/load_library.sh"
+  # Load repos per hostname
+  include_host_repo
 
 post_checkout =
   # Go to newly cloned repo to be able to use below script

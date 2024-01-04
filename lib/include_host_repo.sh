@@ -1,45 +1,42 @@
 #!/usr/bin/env bash
 
-include_host_repo(){
-  if [[ -z "$1" ]]
-  then
-    include_dir="${XDG_DATA_DIR:-${HOME}/.local/share}/mr"
-    if ! [[ -e "/.dockerenv" ]]
+_include_files(){
+  for i_file in "$1"/*
+  do
+    if [[ -d "${i_file}" ]]
     then
-      if [[ "${USE_HOSTNAME}" == "false" ]] && [[ "${USE_USERNAME}" == "false" ]]
-      then
-        include_dir+="/repos"
-      else
-        if [[ "${USE_HOSTNAME}" == "true" ]]
-        then
-          include_dir+="/hosts/${HOSTNAME}"
-        fi
-        if [[ "${USE_USERNAME}" == "true" ]]
-        then
-          include_dir+="/${USER}"
-        fi
-      fi
-      for i_file in "${include_dir}"/*
-      do
-        if [[ $(basename "${i_file}") != "${USER}" ]]
-        then
-          include_host_repo "${include_dir}"
-        fi
-      done
-    else
-      include_dir+="/hosts/docker"
-      include_host_repo "${include_dir}"
+      _include_files "${i_file}"
+    elif [[ "${i_file}" =~ \.git$ ]]
+    then
+      cat "${i_file}"
     fi
-  else
-    for i_file in "$1"/*
-    do
-      if [[ -d "${i_file}" ]]
-      then
-        include_host_repo "${i_file}"
-      elif [[ "${i_file}" =~ \.(git|vcsh)$ ]]
-      then
-        cat "${i_file}"
-      fi
-    done
+  done
+}
+_compute_repo_dir(){
+  if [[ "${USE_HOSTNAME}" == "false" ]] && [[ "${USE_USERNAME}" == "false" ]]
+  then
+    repo_dir+="/repos"
+    return
   fi
+
+  if [[ "${USE_HOSTNAME}" == "true" ]]
+  then
+    repo_dir+="/hosts/${HOSTNAME}"
+  fi
+
+  if [[ "${USE_USERNAME}" == "true" ]]
+  then
+    repo_dir+="/${USER}"
+  fi
+}
+
+include_host_repo(){
+  local repo_dir="$1"
+  if [[ -z "${repo_dir}" ]]
+  then
+    repo_dir="${XDG_DATA_DIR:-${HOME}/.local/share}/mr"
+  fi
+  _log "INFO" "Include repos defined in ${repo_dir}"
+  _compute_repo_dir
+  _include_files "${repo_dir}"
 }

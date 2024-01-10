@@ -97,7 +97,10 @@ _log()
         -e "s/\*\* /\\${e_normal}\\${color_output} /g" \
         -e "s/ \_\_/ \\${e_underline}/g" \
         -e "s/\_\_\./\\${e_normal}\\${color_output}./g" \
-        -e "s/\_\_ /\\${e_normal}\\${color_output} /g")
+        -e "s/\_\_ /\\${e_normal}\\${color_output} /g" \
+        -e "s|${HOME}|~|g" \
+
+  )
   msg="${prefix} ${msg_content}${e_normal}"
 
   # Print message
